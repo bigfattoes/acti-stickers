@@ -3,8 +3,8 @@
     pip install rembg onnxruntime
     python3 tools/cut_poses.py
 
-For each pose it uses the full-size file in poses/ (e.g. poses/lol.png or .jpg) when there is
-one, otherwise the small Canva preview in poses/preview/. Writes source/pose_<name>.png.
+For each pose it uses the full-size Canva download in poses/ (e.g. poses/laugh.png) when there
+is one, otherwise the 600 px copy in poses/canva600/. Writes source/pose_<name>.png.
 """
 
 from pathlib import Path
@@ -15,8 +15,15 @@ from rembg import new_session, remove
 from scipy import ndimage as nd
 
 ROOT = Path(__file__).resolve().parent.parent
-POSES = ['lol', 'hmm', 'wave', 'run', 'jump']
-MIN_HEIGHT = 1200  # small previews are upscaled to this before cutting, for a smoother edge
+POSES = [
+    # emotions
+    'laugh', 'think', 'wave', 'run', 'jump', 'thumbs', 'heart', 'yawn', 'thanks',
+    'shocked', 'cry', 'point', 'flex', 'dance',
+    # sports and activities
+    'football', 'basketball', 'cricket', 'tennis', 'swimming', 'gymnastics',
+    'boxing', 'skating', 'cycling', 'vr', 'chess', 'creativity',
+]
+MIN_HEIGHT = 1200  # smaller images are upscaled to this before cutting, for a smoother edge
 
 
 def find(name):
@@ -24,7 +31,7 @@ def find(name):
         p = ROOT / 'poses' / f'{name}.{ext}'
         if p.exists():
             return p, False
-    return ROOT / 'poses' / 'preview' / f'{name}.jpg', True
+    return ROOT / 'poses' / 'canva600' / f'{name}.png', True
 
 
 def main():
@@ -38,16 +45,28 @@ def main():
             img = img.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
         cut = remove(img, session=session)
         a = np.array(cut)
+        # The images are on pure white: anything strongly coloured is part of the picture even
+        # if the cut-out model missed it (e.g. a red cricket ball).
+        rgb = np.array(img).astype(int)
+        dist = np.sqrt(((255 - rgb) ** 2).sum(axis=2))
+        colour = np.clip((dist - 90) * 4, 0, 255)
+        a[..., 3] = np.maximum(a[..., 3], colour).astype('uint8')
+        a[..., :3] = rgb.astype('uint8')  # true colours from the original, not the cut-out's
         m = a[..., 3] > 30
         lab, n = nd.label(m)
         if n:
             sizes = nd.sum(m, lab, range(1, n + 1))
-            keep = nd.binary_dilation(lab == (np.argmax(sizes) + 1), iterations=2)
+            # Keep Acti plus any props floating free of him (a ball in mid-air), drop specks.
+            big = [i + 1 for i, v in enumerate(sizes) if v >= 0.01 * sizes.max()]
+            keep = nd.binary_dilation(np.isin(lab, big), iterations=2)
             a[..., 3] = np.where(keep, a[..., 3], 0)
+        # Firm up half-transparent areas (motion-blurred balls come out see-through).
+        alpha = a[..., 3].astype(float)
+        a[..., 3] = np.clip((alpha - 25) * 1.6, 0, 255).astype('uint8')
         out = Image.fromarray(a)
         out = out.crop(out.getbbox())
         out.save(ROOT / 'source' / f'pose_{name}.png')
-        print(f'{name:6s} from {"preview" if is_preview else "full-size"} {path.name} -> {out.size}')
+        print(f'{name:11s} from {"600px copy" if is_preview else "full-size"} {path.name} -> {out.size}')
 
 
 if __name__ == '__main__':

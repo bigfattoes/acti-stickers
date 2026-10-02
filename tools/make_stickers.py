@@ -204,30 +204,53 @@ def emojis_for(name):
 
 
 EMOJI_TAGS = {
-    'yalla': ['🏃', '🔥'], 'lets_go': ['⚡', '🙌'], 'whos_in': ['🙋', '❓'], 'on_my_way': ['🏃', '🚗'],
-    'bye': ['👋'], 'hi': ['👋', '😊'], 'shukran': ['🙏', '🧡'], 'mabrook': ['🎉', '🥳'],
-    'good_morning': ['☀️', '😊'], 'game_on': ['⚽', '💪'], 'activated': ['⚡', '💪'],
-    'save_the_date': ['📅', '🎉'], 'habibi': ['🤗', '🧡'], 'hmm': ['🤔'], 'love_it': ['❤️', '😍'],
-    'lol': ['😂'], 'weekend': ['🤸', '❓'], 'activateme': ['🧡', '🎉'],
+    'lol': ['😂'], 'hmm': ['🤔'], 'hi': ['👋', '😊'], 'on_my_way': ['🏃', '🚗'], 'mabrook': ['🎉', '🥳'],
+    'lets_go': ['👍', '🙌'], 'love_you': ['❤️', '😍'], 'good_morning': ['☀️', '😊'], 'shukran': ['🙏', '🧡'],
+    'omg': ['😱', '😮'], 'nooo': ['😭', '😢'], 'habibi': ['🤗', '👉'], 'activated': ['💪', '⚡'],
+    'yalla': ['💃', '🎉'], 'bye': ['👋'], 'psst': ['👀', '🤫'], 'see_you_there': ['📅', '🎉'],
+    'activateme': ['🧡', '🎉'],
+    'goal': ['⚽'], 'swish': ['🏀'], 'howzat': ['🏏'], 'ace': ['🎾'], 'splash': ['🏊'], 'flip': ['🤸'],
+    'knockout': ['🥊'], 'wheee': ['⛸️'], 'ride_on': ['🚴'], 'game_on': ['🎮'], 'checkmate': ['♟️'],
+    'get_creative': ['🎨'],
 }
 
 
-def build():
-    """Each sticker uses a different pose. Stickers waiting on new poses are listed in poses/PROMPTS.md."""
-    s = []
-    s.append(caption_top('lol', 'LOL', pose='pose_lol', h=600, en_size=150, text_tilt=-4,
-                         props=[('😂', 120, 700, 330, -12)]))
-    s.append(caption_top('hmm', 'HMM…', pose='pose_hmm', h=600, en_size=140, props=[('🤔', 110, 700, 330, 8)]))
-    s.append(caption_top('hi', 'HI!', 'مرحبا', pose='pose_wave', h=580, en_size=150))
 
+def pose_sticker(name, en, pose, ar=None, h=600, en_size=130, tilt=0, text_tilt=4, props=(), tag=None):
+    """Caption on top, Acti below. `tag` is a small pill under the caption (e.g. the sport's name)."""
     b = Board()
-    b.put(character('pose_run', 590), 470, 530)
-    b.put(emoji('💨', 150), 230, 640, 0)
-    b.put(text_layer('ON MY WAY!', 120, max_w=820), 450, 140, 3)
-    s.append(('on_my_way', finish(b.img), emojis_for('on_my_way')))
+    b.put(character(pose, h), 450, 540, rotate=tilt)
+    for ch, size, x, y, rot in props:
+        b.put(emoji(ch, size), x, y, rot)
+    y = 135
+    b.put(text_layer(en, en_size, max_w=840), 450, y, text_tilt)
+    if ar:
+        b.put(label(ar, 70, bg=ORANGE, arabic=True), 450, y + en_size * 0.82, -3)
+    if tag:
+        b.put(label(tag, 54, bg=PURPLE), 450, y + en_size * 0.8, -3)
+    return name, finish(b.img), emojis_for(name)
 
-    s.append(caption_top('mabrook', 'MABROOK!', 'مبروك', pose='pose_jump', h=560, en_size=120,
-                         props=[('🎉', 120, 200, 420, -15), ('🎊', 110, 700, 430, 12)]))
+
+def build_main():
+    """Acti: everyday reactions. Every sticker has its own pose."""
+    s = []
+    s.append(pose_sticker('lol', 'LOL', 'pose_laugh', en_size=150, text_tilt=-4, props=[('😂', 110, 720, 300, -12)]))
+    s.append(pose_sticker('hmm', 'HMM…', 'pose_think', en_size=140, props=[('🤔', 100, 720, 330, 8)]))
+    s.append(pose_sticker('hi', 'HI!', 'pose_wave', ar='مرحبا', en_size=150))
+    s.append(pose_sticker('on_my_way', 'ON MY WAY!', 'pose_run', en_size=120, text_tilt=3, props=[('💨', 130, 170, 640, 0)]))
+    s.append(pose_sticker('mabrook', 'MABROOK!', 'pose_jump', ar='مبروك', en_size=120,
+                          props=[('🎉', 110, 170, 420, -15), ('🎊', 100, 730, 430, 12)]))
+    s.append(pose_sticker('lets_go', "LET'S GO!", 'pose_thumbs', en_size=130))
+    s.append(pose_sticker('love_you', 'LOVE YOU!', 'pose_heart', en_size=130,
+                          props=[('❤️', 90, 190, 360, -15), ('❤️', 70, 720, 330, 15)]))
+    s.append(pose_sticker('good_morning', 'GOOD MORNING!', 'pose_yawn', ar='صباح الخير', en_size=100,
+                          props=[('☀️', 110, 740, 360, 0)]))
+    s.append(pose_sticker('shukran', 'SHUKRAN!', 'pose_thanks', ar='شكراً', en_size=120, props=[('🧡', 90, 700, 420, 10)]))
+    s.append(pose_sticker('omg', 'OMG!', 'pose_shocked', en_size=160, text_tilt=-5))
+    s.append(pose_sticker('nooo', 'NOOO!', 'pose_cry', en_size=150))
+    s.append(pose_sticker('habibi', 'HABIBI, COME!', 'pose_point', ar='حبيبي تعال', en_size=105))
+    s.append(pose_sticker('activated', 'ACTIVATED!', 'pose_flex', en_size=115, props=[('⚡', 110, 140, 420, 15), ('⚡', 110, 760, 420, -15)]))
+    s.append(pose_sticker('yalla', 'YALLA!', 'pose_dance', ar='يلا!', en_size=150, props=[('🎶', 100, 740, 380, -10)]))
 
     b = Board()
     b.put(character('back', 560), 450, 520)
@@ -235,32 +258,46 @@ def build():
     b.put(text_layer('BYE BYE!', 130), 450, 140, -3)
     s.append(('bye', finish(b.img), emojis_for('bye')))
 
-    # Psst: face peeking with a speech bubble
     b = Board()
     b.put(face_badge(560), 450, 560)
     b.put(label('PSST…', 100, bg=PURPLE), 650, 220, 8)
     b.put(emoji('👀', 120), 230, 250, 10)
-    s.append(('psst', finish(b.img), ['👀', '🤫']))
-
-    b = Board()
-    b.put(face_badge(520), 450, 520)
-    for x, y, r, sz in [(170, 230, -15, 120), (740, 200, 15, 110), (780, 620, 10, 90)]:
-        b.put(emoji('❤️', sz), x, y, r)
-    b.put(text_layer('LOVE IT!', 125), 450, 820, -3)
-    s.append(('love_it', finish(b.img), emojis_for('love_it')))
-
-    # Acti's open arms read as a welcome
-    s.append(caption_top('habibi', 'HABIBI, COME!', 'حبيبي تعال', pose='front', en_size=105,
-                         props=[('🤗', 110, 680, 420, 0)]))
+    s.append(('psst', finish(b.img), emojis_for('psst')))
 
     b = Board()
     b.put(character('threequarter', 520), 450, 560)
     b.put(text_layer('SEE YOU THERE!', 100, max_w=820), 450, 130, 3)
     b.put(label('16–17 JAN 2027', 62, bg=ORANGE), 450, 230, -3)
     b.put(emoji('📅', 110), 680, 440, -10)
-    s.append(('save_the_date', finish(b.img), emojis_for('save_the_date')))
+    s.append(('see_you_there', finish(b.img), emojis_for('see_you_there')))
 
-    # Brand sticker: logo + name
+    s.append(brand_sticker())
+    return s
+
+
+def build_sports():
+    """Acti Sports: one sticker per festival activity."""
+    sports = [
+        ('goal', 'GOAL!', 'pose_football', 'FOOTBALL'),
+        ('swish', 'SWISH!', 'pose_basketball', 'BASKETBALL'),
+        ('howzat', 'HOWZAT!', 'pose_cricket', 'CRICKET'),
+        ('ace', 'ACE!', 'pose_tennis', 'TENNIS'),
+        ('splash', 'SPLASH!', 'pose_swimming', 'SWIMMING'),
+        ('flip', 'FLIP MODE!', 'pose_gymnastics', 'GYMNASTICS'),
+        ('knockout', 'KNOCKOUT!', 'pose_boxing', 'BOXING'),
+        ('wheee', 'WHEEE!', 'pose_skating', 'SKATING'),
+        ('ride_on', 'RIDE ON!', 'pose_cycling', 'CYCLING'),
+        ('game_on', 'GAME ON!', 'pose_vr', 'VR & ESPORTS'),
+        ('checkmate', 'CHECKMATE!', 'pose_chess', 'CHESS'),
+        ('get_creative', 'GET CREATIVE!', 'pose_creativity', 'CREATIVITY'),
+    ]
+    s = [pose_sticker(name, en, pose, tag=tag, en_size=125, text_tilt=(4 if i % 2 else -4))
+         for i, (name, en, pose, tag) in enumerate(sports)]
+    s.append(brand_sticker())
+    return s
+
+
+def brand_sticker():
     b = Board()
     logo = Image.open(SRC / 'logo.png').convert('RGBA')
     logo.thumbnail((380, 380), Image.LANCZOS)
@@ -269,8 +306,19 @@ def build():
     disc.alpha_composite(logo, ((460 - logo.width) // 2, (460 - logo.height) // 2 + 10))
     b.put(disc, 450, 360)
     b.put(label('ACTIVATEME FEST', 80, bg=PURPLE), 450, 640, -3)
-    s.append(('activateme', finish(b.img), emojis_for('activateme')))
-    return s
+    return ('activateme', finish(b.img), emojis_for('activateme'))
+
+
+def tray_from(pose):
+    """96x96 pack icon: the head of a pose cut-out."""
+    img = Image.open(SRC / f'{pose}.png').convert('RGBA')
+    img = img.crop(img.getbbox())
+    side = min(img.width, int(img.height * 0.55))
+    head = img.crop(((img.width - side) // 2, 0, (img.width + side) // 2, side))
+    head.thumbnail((96, 96), Image.LANCZOS)
+    tray = Image.new('RGBA', (96, 96), (0, 0, 0, 0))
+    tray.alpha_composite(head, ((96 - head.width) // 2, (96 - head.height) // 2))
+    return tray
 
 
 def save_webp(img, path):
@@ -283,50 +331,62 @@ def save_webp(img, path):
     raise RuntimeError(f'{path.name} is over 100 KB')
 
 
-def main():
-    for sub in ('whatsapp', 'png'):
-        (OUT / sub).mkdir(parents=True, exist_ok=True)
-        for old in (OUT / sub).glob('[0-9][0-9]_*'):
-            old.unlink()
-    stickers = build()
-    entries = []
-    for i, (name, img, tags) in enumerate(stickers, 1):
-        fname = f'{i:02d}_{name}'
-        size = save_webp(img, OUT / 'whatsapp' / f'{fname}.webp')
-        img.save(OUT / 'png' / f'{fname}.png', optimize=True)
-        entries.append({'image_file': f'{fname}.webp', 'emojis': tags})
-        print(f'{fname:24s} {size / 1024:5.1f} KB')
-
-    tray = face_badge(96)
-    tray.save(OUT / 'whatsapp' / 'tray.png', optimize=True)
-
-    contents = {
-        'android_play_store_link': '',
-        'ios_app_store_link': '',
-        'sticker_packs': [{
-            'identifier': 'acti_v1',
-            'name': 'Acti · ActivateMe Fest',
-            'publisher': 'ActivateMe Fest',
-            'tray_image_file': 'tray.png',
-            'publisher_website': 'https://www.activatemefest.com',
-            'image_data_version': '1',
-            'avoid_cache': False,
-            'animated_sticker_pack': False,
-            'stickers': entries,
-        }],
-    }
-    (OUT / 'whatsapp' / 'contents.json').write_text(json.dumps(contents, indent=2, ensure_ascii=False))
-
-    # Contact sheet on a chat-like background
+def contact_sheet(stickers, path, title):
     cols = 6
     rows = math.ceil(len(stickers) / cols)
     cell = 220
-    sheet = Image.new('RGBA', (cols * cell + 40, rows * cell + 40), (236, 229, 221, 255))
+    top = 90
+    sheet = Image.new('RGBA', (cols * cell + 40, rows * cell + 40 + top), (236, 229, 221, 255))
+    d = ImageDraw.Draw(sheet)
+    d.text((30, 28), title, font=font(46), fill=INK)
     for i, (_, img, _) in enumerate(stickers):
         t = img.resize((200, 200), Image.LANCZOS)
-        sheet.alpha_composite(t, (20 + (i % cols) * cell + 10, 20 + (i // cols) * cell + 10))
-    sheet.convert('RGB').save(ROOT / 'preview.png')
-    print(f'{len(stickers)} stickers written')
+        sheet.alpha_composite(t, (20 + (i % cols) * cell + 10, top + 20 + (i // cols) * cell + 10))
+    sheet.convert('RGB').save(path)
+
+
+PACKS = [
+    # id, name, builder, tray pose, preview file
+    ('acti', 'Acti · ActivateMe Fest', build_main, 'pose_wave', 'preview.png'),
+    ('acti_sports', 'Acti Sports · ActivateMe Fest', build_sports, 'pose_football', 'preview-sports.png'),
+]
+
+
+def main():
+    import shutil
+    if OUT.exists():
+        shutil.rmtree(OUT)
+    packs_json = []
+    for pack_id, pack_name, builder, tray_pose, preview in PACKS:
+        wa = OUT / 'whatsapp' / pack_id
+        png = OUT / 'png' / pack_id
+        wa.mkdir(parents=True)
+        png.mkdir(parents=True)
+        stickers = builder()
+        assert 3 <= len(stickers) <= 30, f'{pack_id}: WhatsApp packs need 3–30 stickers'
+        entries = []
+        for i, (name, img, tags) in enumerate(stickers, 1):
+            fname = f'{i:02d}_{name}'
+            size = save_webp(img, wa / f'{fname}.webp')
+            img.save(png / f'{fname}.png', optimize=True)
+            entries.append({'image_file': f'{fname}.webp', 'emojis': tags})
+            print(f'{pack_id:12s} {fname:22s} {size / 1024:5.1f} KB')
+        tray_from(tray_pose).save(wa / 'tray.png', optimize=True)
+        packs_json.append({
+            'identifier': pack_id,
+            'name': pack_name,
+            'publisher': 'ActivateMe Fest',
+            'tray_image_file': 'tray.png',
+            'publisher_website': 'https://www.activatemefest.com',
+            'image_data_version': '2',
+            'avoid_cache': False,
+            'animated_sticker_pack': False,
+            'stickers': entries,
+        })
+        contact_sheet(stickers, ROOT / preview, pack_name)
+    contents = {'android_play_store_link': '', 'ios_app_store_link': '', 'sticker_packs': packs_json}
+    (OUT / 'whatsapp' / 'contents.json').write_text(json.dumps(contents, indent=2, ensure_ascii=False))
+    print(f'{sum(len(p["stickers"]) for p in packs_json)} stickers in {len(packs_json)} packs')
 
 
 if __name__ == '__main__':

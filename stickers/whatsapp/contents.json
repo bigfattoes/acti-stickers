@@ -3,12 +3,12 @@
   "ios_app_store_link": "",
   "sticker_packs": [
     {
-      "identifier": "acti_v1",
+      "identifier": "acti",
       "name": "Acti · ActivateMe Fest",
       "publisher": "ActivateMe Fest",
       "tray_image_file": "tray.png",
       "publisher_website": "https://www.activatemefest.com",
-      "image_data_version": "1",
+      "image_data_version": "2",
       "avoid_cache": false,
       "animated_sticker_pack": false,
       "stickers": [
@@ -46,41 +46,181 @@
           ]
         },
         {
-          "image_file": "06_bye.webp",
+          "image_file": "06_lets_go.webp",
           "emojis": [
-            "👋"
+            "👍",
+            "🙌"
           ]
         },
         {
-          "image_file": "07_psst.webp",
-          "emojis": [
-            "👀",
-            "🤫"
-          ]
-        },
-        {
-          "image_file": "08_love_it.webp",
+          "image_file": "07_love_you.webp",
           "emojis": [
             "❤️",
             "😍"
           ]
         },
         {
-          "image_file": "09_habibi.webp",
+          "image_file": "08_good_morning.webp",
           "emojis": [
-            "🤗",
+            "☀️",
+            "😊"
+          ]
+        },
+        {
+          "image_file": "09_shukran.webp",
+          "emojis": [
+            "🙏",
             "🧡"
           ]
         },
         {
-          "image_file": "10_save_the_date.webp",
+          "image_file": "10_omg.webp",
+          "emojis": [
+            "😱",
+            "😮"
+          ]
+        },
+        {
+          "image_file": "11_nooo.webp",
+          "emojis": [
+            "😭",
+            "😢"
+          ]
+        },
+        {
+          "image_file": "12_habibi.webp",
+          "emojis": [
+            "🤗",
+            "👉"
+          ]
+        },
+        {
+          "image_file": "13_activated.webp",
+          "emojis": [
+            "💪",
+            "⚡"
+          ]
+        },
+        {
+          "image_file": "14_yalla.webp",
+          "emojis": [
+            "💃",
+            "🎉"
+          ]
+        },
+        {
+          "image_file": "15_bye.webp",
+          "emojis": [
+            "👋"
+          ]
+        },
+        {
+          "image_file": "16_psst.webp",
+          "emojis": [
+            "👀",
+            "🤫"
+          ]
+        },
+        {
+          "image_file": "17_see_you_there.webp",
           "emojis": [
             "📅",
             "🎉"
           ]
         },
         {
-          "image_file": "11_activateme.webp",
+          "image_file": "18_activateme.webp",
+          "emojis": [
+            "🧡",
+            "🎉"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "acti_sports",
+      "name": "Acti Sports · ActivateMe Fest",
+      "publisher": "ActivateMe Fest",
+      "tray_image_file": "tray.png",
+      "publisher_website": "https://www.activatemefest.com",
+      "image_data_version": "2",
+      "avoid_cache": false,
+      "animated_sticker_pack": false,
+      "stickers": [
+        {
+          "image_file": "01_goal.webp",
+          "emojis": [
+            "⚽"
+          ]
+        },
+        {
+          "image_file": "02_swish.webp",
+          "emojis": [
+            "🏀"
+          ]
+        },
+        {
+          "image_file": "03_howzat.webp",
+          "emojis": [
+            "🏏"
+          ]
+        },
+        {
+          "image_file": "04_ace.webp",
+          "emojis": [
+            "🎾"
+          ]
+        },
+        {
+          "image_file": "05_splash.webp",
+          "emojis": [
+            "🏊"
+          ]
+        },
+        {
+          "image_file": "06_flip.webp",
+          "emojis": [
+            "🤸"
+          ]
+        },
+        {
+          "image_file": "07_knockout.webp",
+          "emojis": [
+            "🥊"
+          ]
+        },
+        {
+          "image_file": "08_wheee.webp",
+          "emojis": [
+            "⛸️"
+          ]
+        },
+        {
+          "image_file": "09_ride_on.webp",
+          "emojis": [
+            "🚴"
+          ]
+        },
+        {
+          "image_file": "10_game_on.webp",
+          "emojis": [
+            "🎮"
+          ]
+        },
+        {
+          "image_file": "11_checkmate.webp",
+          "emojis": [
+            "♟️"
+          ]
+        },
+        {
+          "image_file": "12_get_creative.webp",
+          "emojis": [
+            "🎨"
+          ]
+        },
+        {
+          "image_file": "13_activateme.webp",
           "emojis": [
             "🧡",
             "🎉"

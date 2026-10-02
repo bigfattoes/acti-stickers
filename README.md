@@ -1,43 +1,35 @@
-# Acti sticker pack
+# Acti sticker packs
 
-WhatsApp stickers of **Acti**, the ActivateMe Fest mascot: 11 stickers, each with its own pose, with English captions and some in Arabic too. More are on the way, see `poses/PROMPTS.md`.
+WhatsApp stickers of **Acti**, the ActivateMe Fest mascot. There are two packs, and every sticker has its own pose:
 
-![Preview](preview.png)
+- **Acti** (18 stickers): everyday reactions such as LOL, HMM…, HI!, MABROOK!, SHUKRAN!, OMG!, NOOO!, HABIBI COME!, YALLA!, with Arabic on several.
+- **Acti Sports** (13 stickers): one sticker for each festival activity: GOAL!, SWISH!, HOWZAT!, ACE!, SPLASH!, FLIP MODE!, KNOCKOUT!, WHEEE!, RIDE ON!, GAME ON!, CHECKMATE!, GET CREATIVE!
+
+![Acti](preview.png)
+![Acti Sports](preview-sports.png)
 
 | File | What it is |
 |---|---|
-| `stickers/whatsapp/*.webp` | The stickers in WhatsApp format: 512×512, transparent, each under 100 KB |
-| `stickers/whatsapp/tray.png` | 96×96 pack icon |
-| `stickers/whatsapp/contents.json` | Pack details in the format WhatsApp's official sticker code expects |
-| `stickers/png/*.png` | The same stickers as PNG, for Telegram, iMessage, Instagram stories, print |
+| `stickers/whatsapp/<pack>/*.webp` | The stickers in WhatsApp format: 512×512, transparent, each under 100 KB |
+| `stickers/whatsapp/<pack>/tray.png` | 96×96 pack icon |
+| `stickers/whatsapp/contents.json` | Both packs, in the format WhatsApp's official sticker code expects |
+| `stickers/png/<pack>/*.png` | The same stickers as PNG, for Telegram, iMessage, Instagram stories and print |
 
 ## Getting them into WhatsApp
 
 WhatsApp only lets apps add sticker packs, so there are three routes:
 
-1. **From the ActivateMe app (best).** Add an "Add Acti stickers to WhatsApp" button. WhatsApp publishes free code for this for both iOS and Android (github.com/WhatsApp/stickers). The `stickers/whatsapp` folder is already in the format it expects: drop it in as the pack's assets and fill in the app's store links in `contents.json`. It also gives people another reason to download the app.
-2. **Quick, no developers needed.** Upload the PNGs to the free **Sticker.ly** app, publish the pack, and share its link. Anyone who taps the link gets an "Add to WhatsApp" button.
+1. **From the ActivateMe app (best).** Add "Add Acti stickers to WhatsApp" buttons using WhatsApp's free sample code for iOS and Android (github.com/WhatsApp/stickers). `stickers/whatsapp` is already in the format it expects: one folder per pack plus `contents.json`. Fill in the app's store links in `contents.json`.
+2. **Quick, no developers needed.** Upload the PNGs to the free **Sticker.ly** app, publish each pack, and share the links.
 3. **For the team right now.** Send the stickers into a chat, then long-press each one and choose **Add to Favourites**.
 
-## Changing or adding stickers
+## How it's made
 
-Captions, emojis and layouts are all in `tools/make_stickers.py`. Edit them and run:
+1. **Poses** are generated in Canva from the Acti reference. `poses/PROMPTS.md` has the prompts, and `poses/CANVA_IDS.md` lists every image's Canva ID. They're also collected in the Canva design "Acti poses".
+2. `poses/canva600/` holds a 600 px copy of each pose. For even sharper results, put full-size Canva downloads in `poses/` with the same names (e.g. `poses/laugh.png`); they're used automatically.
+3. `python3 tools/cut_poses.py` cuts out the backgrounds into `source/pose_*.png` (needs `pip install rembg onnxruntime`).
+4. `python3 tools/make_stickers.py` builds both packs, the tray icons, `contents.json` and the previews (needs `pip install pillow numpy scipy`, with Pillow built with libraqm for Arabic).
 
-```bash
-pip install pillow numpy scipy   # Pillow needs libraqm for the Arabic captions
-python3 tools/make_stickers.py
-```
+Captions, emojis and layouts live in `build_main()` and `build_sports()` in `tools/make_stickers.py`. WhatsApp allows 3–30 stickers per pack.
 
-This rebuilds every sticker, the tray icon, `contents.json` and `preview.png`. WhatsApp allows up to 30 stickers per pack.
-
-## New poses
-
-New Acti poses are generated with an image AI tool, using the prompts in `poses/PROMPTS.md`. To add or upgrade a pose:
-
-1. Save the full-size image in `poses/` with the pose's name, e.g. `poses/lol.png`.
-2. Run `python3 tools/cut_poses.py` to cut out the background (needs `pip install rembg onnxruntime`).
-3. Run `python3 tools/make_stickers.py`.
-
-The five new poses (`lol`, `hmm`, `wave`, `run`, `jump`) are currently built from small Canva previews in `poses/preview/`, so they look slightly soft up close. Drop the full-size downloads into `poses/` and rerun both scripts to sharpen them.
-
-`source/` holds the Acti cut-outs: the character sheet poses and the generated `pose_*.png` files. Fonts are Baloo 2 and Baloo Bhaijaan 2 (Arabic), both under the SIL Open Font License (`fonts/OFL.txt`).
+`source/` also holds the original character-sheet cut-outs (front, back, three-quarter, side and face). Fonts are Baloo 2 and Baloo Bhaijaan 2 (Arabic), under the SIL Open Font License (`fonts/OFL.txt`).
