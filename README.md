@@ -1,6 +1,6 @@
 # Acti sticker pack
 
-WhatsApp stickers of **Acti**, the ActivateMe Fest mascot: 18 stickers, with English captions and some in Arabic too.
+WhatsApp stickers of **Acti**, the ActivateMe Fest mascot: 11 stickers, each with its own pose, with English captions and some in Arabic too. More are on the way, see `poses/PROMPTS.md`.
 
 ![Preview](preview.png)
 
@@ -30,4 +30,14 @@ python3 tools/make_stickers.py
 
 This rebuilds every sticker, the tray icon, `contents.json` and `preview.png`. WhatsApp allows up to 30 stickers per pack.
 
-`source/` holds the Acti cut-outs taken from the official character sheet. Fonts are Baloo 2 and Baloo Bhaijaan 2 (Arabic), both under the SIL Open Font License (`fonts/OFL.txt`).
+## New poses
+
+New Acti poses are generated with an image AI tool, using the prompts in `poses/PROMPTS.md`. To add or upgrade a pose:
+
+1. Save the full-size image in `poses/` with the pose's name, e.g. `poses/lol.png`.
+2. Run `python3 tools/cut_poses.py` to cut out the background (needs `pip install rembg onnxruntime`).
+3. Run `python3 tools/make_stickers.py`.
+
+The five new poses (`lol`, `hmm`, `wave`, `run`, `jump`) are currently built from small Canva previews in `poses/preview/`, so they look slightly soft up close. Drop the full-size downloads into `poses/` and rerun both scripts to sharpen them.
+
+`source/` holds the Acti cut-outs: the character sheet poses and the generated `pose_*.png` files. Fonts are Baloo 2 and Baloo Bhaijaan 2 (Arabic), both under the SIL Open Font License (`fonts/OFL.txt`).

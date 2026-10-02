@@ -213,18 +213,21 @@ EMOJI_TAGS = {
 
 
 def build():
+    """Each sticker uses a different pose. Stickers waiting on new poses are listed in poses/PROMPTS.md."""
     s = []
-    s.append(caption_top('yalla', 'YALLA!', 'يلا!', props=[('🔥', 110, 680, 360, -12)]))
-    s.append(caption_top('lets_go', "LET'S GO!", pose='threequarter', tilt=-6,
-                         props=[('⚡', 120, 220, 380, 12), ('⚡', 100, 680, 420, -10)]))
-    s.append(caption_top('whos_in', "WHO'S IN?", pose='front2', props=[('🙋', 120, 680, 400, -8)]))
+    s.append(caption_top('lol', 'LOL', pose='pose_lol', h=600, en_size=150, text_tilt=-4,
+                         props=[('😂', 120, 700, 330, -12)]))
+    s.append(caption_top('hmm', 'HMM…', pose='pose_hmm', h=600, en_size=140, props=[('🤔', 110, 700, 330, 8)]))
+    s.append(caption_top('hi', 'HI!', 'مرحبا', pose='pose_wave', h=580, en_size=150))
 
-    # On my way: side view running, speed lines
     b = Board()
-    b.put(character('side', 560, flip=True), 470, 520, rotate=-8)
-    b.put(emoji('💨', 150), 290, 600, 0)
-    b.put(text_layer('ON MY WAY!', 120, max_w=820), 450, 220, 3)
+    b.put(character('pose_run', 590), 470, 530)
+    b.put(emoji('💨', 150), 230, 640, 0)
+    b.put(text_layer('ON MY WAY!', 120, max_w=820), 450, 140, 3)
     s.append(('on_my_way', finish(b.img), emojis_for('on_my_way')))
+
+    s.append(caption_top('mabrook', 'MABROOK!', 'مبروك', pose='pose_jump', h=560, en_size=120,
+                         props=[('🎉', 120, 200, 420, -15), ('🎊', 110, 700, 430, 12)]))
 
     b = Board()
     b.put(character('back', 560), 450, 520)
@@ -232,36 +235,12 @@ def build():
     b.put(text_layer('BYE BYE!', 130), 450, 140, -3)
     s.append(('bye', finish(b.img), emojis_for('bye')))
 
-    # Hi: face peeking up from the bottom with a speech bubble
+    # Psst: face peeking with a speech bubble
     b = Board()
     b.put(face_badge(560), 450, 560)
-    b.put(label('HI!', 120, bg=PURPLE), 680, 220, 8)
-    b.put(emoji('👋', 130), 230, 250, 15)
-    s.append(('hi', finish(b.img), emojis_for('hi')))
-
-    s.append(caption_top('shukran', 'SHUKRAN!', 'شكراً', pose='front2', props=[('🧡', 110, 680, 380, 10)], en_size=120))
-    s.append(caption_top('mabrook', 'MABROOK!', 'مبروك', props=[('🎉', 120, 220, 360, -15), ('🎊', 110, 680, 380, 12)], en_size=120))
-    s.append(caption_top('good_morning', 'GOOD MORNING!', 'صباح الخير', pose='threequarter',
-                         props=[('☀️', 120, 680, 360, 0)], en_size=100))
-    s.append(caption_top('game_on', 'GAME ON!', pose='front2', props=[('⚽', 120, 680, 700, 0), ('🏀', 100, 220, 700, 0)]))
-    s.append(caption_top('activated', 'ACTIVATED!', pose='front', props=[('⚡', 130, 220, 400, 15), ('⚡', 130, 680, 400, -15)], en_size=115))
-
-    # Save the date
-    b = Board()
-    b.put(character('front2', 520), 450, 560)
-    b.put(text_layer('SEE YOU THERE!', 100, max_w=820), 450, 130, 3)
-    b.put(label('16–17 JAN 2027', 62, bg=ORANGE), 450, 230, -3)
-    b.put(emoji('📅', 110), 680, 420, -10)
-    s.append(('save_the_date', finish(b.img), emojis_for('save_the_date')))
-
-    s.append(caption_top('habibi', 'HABIBI, COME!', 'حبيبي تعال', pose='threequarter', en_size=105,
-                         props=[('🤗', 110, 680, 420, 0)]))
-
-    b = Board()
-    b.put(character('side', 560), 470, 520)
-    b.put(emoji('🤔', 120), 300, 340, 0)
-    b.put(text_layer('HMM…', 130), 450, 140, -3)
-    s.append(('hmm', finish(b.img), emojis_for('hmm')))
+    b.put(label('PSST…', 100, bg=PURPLE), 650, 220, 8)
+    b.put(emoji('👀', 120), 230, 250, 10)
+    s.append(('psst', finish(b.img), ['👀', '🤫']))
 
     b = Board()
     b.put(face_badge(520), 450, 520)
@@ -270,8 +249,16 @@ def build():
     b.put(text_layer('LOVE IT!', 125), 450, 820, -3)
     s.append(('love_it', finish(b.img), emojis_for('love_it')))
 
-    s.append(caption_top('lol', 'LOL', pose='front', props=[('😂', 120, 680, 380, -10), ('😂', 90, 220, 420, 10)], en_size=150))
-    s.append(caption_top('weekend', 'WEEKEND PLANS?', pose='threequarter', en_size=95, props=[('🤸', 110, 680, 420, 0)]))
+    # Acti's open arms read as a welcome
+    s.append(caption_top('habibi', 'HABIBI, COME!', 'حبيبي تعال', pose='front', en_size=105,
+                         props=[('🤗', 110, 680, 420, 0)]))
+
+    b = Board()
+    b.put(character('threequarter', 520), 450, 560)
+    b.put(text_layer('SEE YOU THERE!', 100, max_w=820), 450, 130, 3)
+    b.put(label('16–17 JAN 2027', 62, bg=ORANGE), 450, 230, -3)
+    b.put(emoji('📅', 110), 680, 440, -10)
+    s.append(('save_the_date', finish(b.img), emojis_for('save_the_date')))
 
     # Brand sticker: logo + name
     b = Board()
@@ -297,8 +284,10 @@ def save_webp(img, path):
 
 
 def main():
-    (OUT / 'whatsapp').mkdir(parents=True, exist_ok=True)
-    (OUT / 'png').mkdir(parents=True, exist_ok=True)
+    for sub in ('whatsapp', 'png'):
+        (OUT / sub).mkdir(parents=True, exist_ok=True)
+        for old in (OUT / sub).glob('[0-9][0-9]_*'):
+            old.unlink()
     stickers = build()
     entries = []
     for i, (name, img, tags) in enumerate(stickers, 1):

@@ -13,24 +13,22 @@
       "animated_sticker_pack": false,
       "stickers": [
         {
-          "image_file": "01_yalla.webp",
+          "image_file": "01_lol.webp",
           "emojis": [
-            "🏃",
-            "🔥"
+            "😂"
           ]
         },
         {
-          "image_file": "02_lets_go.webp",
+          "image_file": "02_hmm.webp",
           "emojis": [
-            "⚡",
-            "🙌"
+            "🤔"
           ]
         },
         {
-          "image_file": "03_whos_in.webp",
+          "image_file": "03_hi.webp",
           "emojis": [
-            "🙋",
-            "❓"
+            "👋",
+            "😊"
           ]
         },
         {
@@ -41,95 +39,48 @@
           ]
         },
         {
-          "image_file": "05_bye.webp",
-          "emojis": [
-            "👋"
-          ]
-        },
-        {
-          "image_file": "06_hi.webp",
-          "emojis": [
-            "👋",
-            "😊"
-          ]
-        },
-        {
-          "image_file": "07_shukran.webp",
-          "emojis": [
-            "🙏",
-            "🧡"
-          ]
-        },
-        {
-          "image_file": "08_mabrook.webp",
+          "image_file": "05_mabrook.webp",
           "emojis": [
             "🎉",
             "🥳"
           ]
         },
         {
-          "image_file": "09_good_morning.webp",
+          "image_file": "06_bye.webp",
           "emojis": [
-            "☀️",
-            "😊"
+            "👋"
           ]
         },
         {
-          "image_file": "10_game_on.webp",
+          "image_file": "07_psst.webp",
           "emojis": [
-            "⚽",
-            "💪"
+            "👀",
+            "🤫"
           ]
         },
         {
-          "image_file": "11_activated.webp",
-          "emojis": [
-            "⚡",
-            "💪"
-          ]
-        },
-        {
-          "image_file": "12_save_the_date.webp",
-          "emojis": [
-            "📅",
-            "🎉"
-          ]
-        },
-        {
-          "image_file": "13_habibi.webp",
-          "emojis": [
-            "🤗",
-            "🧡"
-          ]
-        },
-        {
-          "image_file": "14_hmm.webp",
-          "emojis": [
-            "🤔"
-          ]
-        },
-        {
-          "image_file": "15_love_it.webp",
+          "image_file": "08_love_it.webp",
           "emojis": [
             "❤️",
             "😍"
           ]
         },
         {
-          "image_file": "16_lol.webp",
+          "image_file": "09_habibi.webp",
           "emojis": [
-            "😂"
+            "🤗",
+            "🧡"
           ]
         },
         {
-          "image_file": "17_weekend.webp",
+          "image_file": "10_save_the_date.webp",
           "emojis": [
-            "🤸",
-            "❓"
+            "📅",
+            "🎉"
           ]
         },
         {
-          "image_file": "18_activateme.webp",
+          "image_file": "11_activateme.webp",
           "emojis": [
             "🧡",
             "🎉"
