@@ -1,0 +1,141 @@
+{
+  "android_play_store_link": "",
+  "ios_app_store_link": "",
+  "sticker_packs": [
+    {
+      "identifier": "acti_v1",
+      "name": "Acti · ActivateMe Fest",
+      "publisher": "ActivateMe Fest",
+      "tray_image_file": "tray.png",
+      "publisher_website": "https://www.activatemefest.com",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "animated_sticker_pack": false,
+      "stickers": [
+        {
+          "image_file": "01_yalla.webp",
+          "emojis": [
+            "🏃",
+            "🔥"
+          ]
+        },
+        {
+          "image_file": "02_lets_go.webp",
+          "emojis": [
+            "⚡",
+            "🙌"
+          ]
+        },
+        {
+          "image_file": "03_whos_in.webp",
+          "emojis": [
+            "🙋",
+            "❓"
+          ]
+        },
+        {
+          "image_file": "04_on_my_way.webp",
+          "emojis": [
+            "🏃",
+            "🚗"
+          ]
+        },
+        {
+          "image_file": "05_bye.webp",
+          "emojis": [
+            "👋"
+          ]
+        },
+        {
+          "image_file": "06_hi.webp",
+          "emojis": [
+            "👋",
+            "😊"
+          ]
+        },
+        {
+          "image_file": "07_shukran.webp",
+          "emojis": [
+            "🙏",
+            "🧡"
+          ]
+        },
+        {
+          "image_file": "08_mabrook.webp",
+          "emojis": [
+            "🎉",
+            "🥳"
+          ]
+        },
+        {
+          "image_file": "09_good_morning.webp",
+          "emojis": [
+            "☀️",
+            "😊"
+          ]
+        },
+        {
+          "image_file": "10_game_on.webp",
+          "emojis": [
+            "⚽",
+            "💪"
+          ]
+        },
+        {
+          "image_file": "11_activated.webp",
+          "emojis": [
+            "⚡",
+            "💪"
+          ]
+        },
+        {
+          "image_file": "12_save_the_date.webp",
+          "emojis": [
+            "📅",
+            "🎉"
+          ]
+        },
+        {
+          "image_file": "13_habibi.webp",
+          "emojis": [
+            "🤗",
+            "🧡"
+          ]
+        },
+        {
+          "image_file": "14_hmm.webp",
+          "emojis": [
+            "🤔"
+          ]
+        },
+        {
+          "image_file": "15_love_it.webp",
+          "emojis": [
+            "❤️",
+            "😍"
+          ]
+        },
+        {
+          "image_file": "16_lol.webp",
+          "emojis": [
+            "😂"
+          ]
+        },
+        {
+          "image_file": "17_weekend.webp",
+          "emojis": [
+            "🤸",
+            "❓"
+          ]
+        },
+        {
+          "image_file": "18_activateme.webp",
+          "emojis": [
+            "🧡",
+            "🎉"
+          ]
+        }
+      ]
+    }
+  ]
+}
