@@ -23,6 +23,11 @@ POSES = [
     'football', 'basketball', 'cricket', 'tennis', 'swimming', 'gymnastics',
     'boxing', 'skating', 'cycling', 'vr', 'chess', 'creativity',
 ]
+# Text-free "Acti Moves" pack: full-size images live in poses/moves/, cut to source/move_<name>.png
+MOVES = [
+    'skim_carry', 'skim_ride', 'surf', 'skateboard', 'hiphop', 'disco', 'breakdance', 'party',
+    'volleyball', 'padel', 'goalkeeper', 'yoga', 'weights', 'jumprope', 'trophy', 'medal',
+]
 MIN_HEIGHT = 1200  # smaller images are upscaled to this before cutting, for a smoother edge
 
 
@@ -34,10 +39,22 @@ def find(name):
     return ROOT / 'poses' / 'canva600' / f'{name}.png', True
 
 
-def main():
-    session = new_session('isnet-general-use')
+def jobs():
     for name in POSES:
         path, is_preview = find(name)
+        yield name, path, is_preview, ROOT / 'source' / f'pose_{name}.png'
+    for name in MOVES:
+        yield name, ROOT / 'poses' / 'moves' / f'{name}.jpg', False, ROOT / 'source' / f'move_{name}.png'
+
+
+def main():
+    import sys
+    only = set(sys.argv[1:])  # e.g. `python3 tools/cut_poses.py moves` to cut only the Moves pack
+    session = new_session('isnet-general-use')
+    for name, path, is_preview, dest in jobs():
+        is_move = dest.name.startswith('move_')
+        if only and name not in only and not ('moves' in only and is_move):
+            continue
         img = Image.open(path).convert('RGB')
         if img.height < MIN_HEIGHT:
             k = MIN_HEIGHT / img.height
@@ -65,7 +82,7 @@ def main():
         a[..., 3] = np.clip((alpha - 25) * 1.6, 0, 255).astype('uint8')
         out = Image.fromarray(a)
         out = out.crop(out.getbbox())
-        out.save(ROOT / 'source' / f'pose_{name}.png')
+        out.save(dest)
         print(f'{name:11s} from {"600px copy" if is_preview else "full-size"} {path.name} -> {out.size}')
 
 
