@@ -212,6 +212,10 @@ EMOJI_TAGS = {
     'goal': ['⚽'], 'swish': ['🏀'], 'howzat': ['🏏'], 'ace': ['🎾'], 'splash': ['🏊'], 'flip': ['🤸'],
     'knockout': ['🥊'], 'wheee': ['⛸️'], 'ride_on': ['🚴'], 'game_on': ['🎮'], 'checkmate': ['♟️'],
     'get_creative': ['🎨'],
+    'skim_carry': ['🏄', '😎'], 'skim_ride': ['🏄', '🌊'], 'surf': ['🏄', '🌊'], 'skateboard': ['🛹'],
+    'hiphop': ['🕺', '😎'], 'disco': ['🕺', '🪩'], 'breakdance': ['🕺', '🔥'], 'party': ['💃', '🎉'],
+    'volleyball': ['🏐'], 'padel': ['🎾'], 'goalkeeper': ['🧤', '⚽'], 'yoga': ['🧘', '😌'],
+    'weights': ['🏋️', '💪'], 'jumprope': ['🤸'], 'trophy': ['🏆', '🎉'], 'medal': ['🥇', '😉'],
 }
 
 
@@ -297,6 +301,22 @@ def build_sports():
     return s
 
 
+MOVES = [
+    'skim_carry', 'skim_ride', 'surf', 'skateboard', 'hiphop', 'disco', 'breakdance', 'party',
+    'volleyball', 'padel', 'goalkeeper', 'yoga', 'weights', 'jumprope', 'trophy', 'medal',
+]
+
+
+def build_moves():
+    """Acti Moves: sports and dance poses with no captions, just Acti in a die-cut border."""
+    s = []
+    for name in MOVES:
+        b = Board(1600, 1600)  # roomy, so wide poses (barbell, goalkeeper dive) are never clipped
+        b.put(character(f'move_{name}', 900), 800, 800)
+        s.append((name, finish(b.img), emojis_for(name)))
+    return s
+
+
 def brand_sticker():
     b = Board()
     logo = Image.open(SRC / 'logo.png').convert('RGBA')
@@ -349,6 +369,7 @@ PACKS = [
     # id, name, builder, tray pose, preview file
     ('acti', 'Acti · ActivateMe Fest', build_main, 'pose_wave', 'preview.png'),
     ('acti_sports', 'Acti Sports · ActivateMe Fest', build_sports, 'pose_football', 'preview-sports.png'),
+    ('acti_moves', 'Acti Moves · ActivateMe Fest', build_moves, 'move_skim_carry', 'preview-moves.png'),
 ]
 
 

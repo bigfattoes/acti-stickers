@@ -227,6 +227,126 @@
           ]
         }
       ]
+    },
+    {
+      "identifier": "acti_moves",
+      "name": "Acti Moves · ActivateMe Fest",
+      "publisher": "ActivateMe Fest",
+      "tray_image_file": "tray.png",
+      "publisher_website": "https://www.activatemefest.com",
+      "image_data_version": "2",
+      "avoid_cache": false,
+      "animated_sticker_pack": false,
+      "stickers": [
+        {
+          "image_file": "01_skim_carry.webp",
+          "emojis": [
+            "🏄",
+            "😎"
+          ]
+        },
+        {
+          "image_file": "02_skim_ride.webp",
+          "emojis": [
+            "🏄",
+            "🌊"
+          ]
+        },
+        {
+          "image_file": "03_surf.webp",
+          "emojis": [
+            "🏄",
+            "🌊"
+          ]
+        },
+        {
+          "image_file": "04_skateboard.webp",
+          "emojis": [
+            "🛹"
+          ]
+        },
+        {
+          "image_file": "05_hiphop.webp",
+          "emojis": [
+            "🕺",
+            "😎"
+          ]
+        },
+        {
+          "image_file": "06_disco.webp",
+          "emojis": [
+            "🕺",
+            "🪩"
+          ]
+        },
+        {
+          "image_file": "07_breakdance.webp",
+          "emojis": [
+            "🕺",
+            "🔥"
+          ]
+        },
+        {
+          "image_file": "08_party.webp",
+          "emojis": [
+            "💃",
+            "🎉"
+          ]
+        },
+        {
+          "image_file": "09_volleyball.webp",
+          "emojis": [
+            "🏐"
+          ]
+        },
+        {
+          "image_file": "10_padel.webp",
+          "emojis": [
+            "🎾"
+          ]
+        },
+        {
+          "image_file": "11_goalkeeper.webp",
+          "emojis": [
+            "🧤",
+            "⚽"
+          ]
+        },
+        {
+          "image_file": "12_yoga.webp",
+          "emojis": [
+            "🧘",
+            "😌"
+          ]
+        },
+        {
+          "image_file": "13_weights.webp",
+          "emojis": [
+            "🏋️",
+            "💪"
+          ]
+        },
+        {
+          "image_file": "14_jumprope.webp",
+          "emojis": [
+            "🤸"
+          ]
+        },
+        {
+          "image_file": "15_trophy.webp",
+          "emojis": [
+            "🏆",
+            "🎉"
+          ]
+        },
+        {
+          "image_file": "16_medal.webp",
+          "emojis": [
+            "🥇",
+            "😉"
+          ]
+        }
+      ]
     }
   ]
 }
